@@ -12,6 +12,7 @@ let particles = []
 const linesAmount = 250
 const fadeRate = .03
 const mustFade = true
+const eventEndDelay = 3000
 
 
 const _draw = () => {
@@ -83,7 +84,7 @@ const onEventEnd = (e) => {
 	eventEndTimeout = setTimeout(() => {
 		isTouchDown = false
 		particles = []
-	}, 2000)
+	}, eventEndDelay)
 }
 
 function init() {

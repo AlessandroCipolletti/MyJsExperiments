@@ -6,7 +6,7 @@
     "lint": "eslint -c .eslintrc.json src",
     "lint:quiet": "eslint -c .eslintrc.json src --quiet",
     "lint:fix": "eslint -c .eslintrc.json src --fix",
-    "build": "rm -rf ./build && parcel build src/index.html --no-source-maps --out-dir ./build",
+    "build": "rm -rf ./build && parcel build src/index.html --public-url ./ --no-source-maps --out-dir ./build",
     "start": "parcel src/index.html --https --out-dir ./build"
   },
   "browserslist": "> 0.25%, not dead",
