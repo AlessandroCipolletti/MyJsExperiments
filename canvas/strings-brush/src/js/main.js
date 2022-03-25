@@ -57,8 +57,8 @@ const fadeAll = () => {
 	ctx.fillStyle = `rgba(255, 255, 255, ${fadeRate})`
   ctx.beginPath()
   ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height)
-  ctx.closePath()
   ctx.fill()
+	ctx.closePath()
 }
 
 const onEventstart = (e) => {
@@ -88,7 +88,7 @@ const onEventEnd = (e) => {
 }
 
 function init() {
-	const ctCanvas = document.getElementById("canvas")
+	const ctCanvas = document.getElementById('canvas')
 	ctCanvas.width = window.innerWidth
 	ctCanvas.height = window.innerHeight
 	ctCanvas.style.width = `${window.inner}px`
@@ -102,7 +102,7 @@ function init() {
 		onEventstart()
 		ctCanvas.addEventListener('mousemove', onEventMove)
 	}
-	ctx = document.getElementById('canvas').getContext('2d');
+	ctx = document.querySelector('canvas').getContext('2d')
 }
 
 document.onreadystatechange = async() => {

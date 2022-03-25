@@ -1,5 +1,5 @@
 {
-  "name": "canvas-strings-brush",
+  "name": "canvas-noise",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -12,14 +12,12 @@
   "browserslist": "> 0.25%, not dead",
   "author": "Alessandro Cipolletti",
   "license": "MIT",
-  "dependencies": {
-  },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.17.8",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.16.10",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
     "babel-eslint": "^8.2.6",
     "babel-plugin-module-resolver": "^4.1.0",
     "cssnano": "^4.1.10",
