@@ -37,8 +37,7 @@ const initParticleSystem = (x, y) => {
 	cursorX = x
 	cursorY = y
 	for (let i = 0; i <= linesAmount; i++) {
-		const newParticle = new Particle(x, y)
-		particles.push(newParticle)
+		particles.push(new Particle(x, y))
 	}
 }
 
