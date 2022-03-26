@@ -9,7 +9,7 @@ let ctx
 let cursorX = 0
 let cursorY = 0
 let particles = []
-const linesAmount = 250
+const linesAmount = 500
 const fadeRate = .03
 const mustFade = true
 const eventEndDelay = 3000
@@ -46,8 +46,12 @@ const drawParticleLine = (particle) => {
 	ctx.lineWidth = particle.width
 	ctx.strokeStyle = particle.color
   ctx.beginPath()
-  ctx.moveTo(particle.oldX, particle.oldY)
-  ctx.lineTo(particle.x, particle.y)
+
+	ctx.moveTo(particle.oldMidX, particle.oldMidY)
+  // ctx.bezierCurveTo(particle.oldMidX, particle.oldMidY, 200, 100, 200, 20)
+  ctx.quadraticCurveTo(particle.oldX, particle.oldY, particle.midX, particle.midY)
+  // ctx.moveTo(particle.oldX, particle.oldY)
+  // ctx.lineTo(particle.x, particle.y)
 	ctx.stroke()
 	ctx.closePath()
 }

@@ -1,8 +1,8 @@
 import SimplexNoise from './SimplexNoise'
+import { round } from './utils'
 
 
 const Configs = {
-  backgroundColor: '#eee9e9',
   particleNum: 1000,
   step: 5,
   base: 1000,
@@ -49,11 +49,7 @@ function onWindowResize(e) {
 }
 
 function onCanvasClick(e) {
-  context.save()
-  context.globalAlpha = 0.8
-  context.fillStyle = Configs.backgroundColor
-  context.fillRect(0, 0, screenWidth, screenHeight)
-  context.restore()
+  context.clearRect(0, 0, screenWidth, screenHeight)
   simplexNoise = new SimplexNoise()
 }
 
@@ -73,8 +69,14 @@ function getNoise(x, y, z) {
 }
 
 function initParticle(p) {
-  p.x = p.pastX = screenWidth * Math.random()
-  p.y = p.pastY = screenHeight * Math.random()
+  p.x = screenWidth * Math.random()
+  p.y = screenHeight * Math.random()
+  p.oldX = p.x
+  p.oldY = p.y
+	p.midX = p.x
+	p.midY = p.y
+	p.oldMidX = p.x
+	p.oldMidY = p.y
   p.color.h = hueBase + Math.atan2(centerY - p.y, centerX - p.x) * 180 / Math.PI
   p.color.s = 1
   p.color.l = 0.5
@@ -87,19 +89,24 @@ function update() {
   for (let i = 0, len = particles.length; i < len; i++) {
     p = particles[i]
 
-    p.pastX = p.x
-    p.pastY = p.y
+    p.oldX = p.x
+    p.oldY = p.y
+    p.oldMidX = p.midX
+		p.oldMidY = p.midY
 
     angle = Math.PI * 6 * getNoise(p.x / Configs.base * 1.75, p.y / Configs.base * 1.75, zoff)
-    p.x += Math.cos(angle) * Configs.step
-    p.y += Math.sin(angle) * Configs.step
+    p.x = round(p.x + Math.cos(angle) * Configs.step, 2)
+    p.y = round(p.y + Math.sin(angle) * Configs.step, 2)
+    p.midX = round((p.oldX + p.x) / 2, 2)
+    p.midY = round((p.oldY + p.y) / 2, 2)
 
     if (p.color.a < 1) p.color.a += 0.003
 
     context.beginPath()
     context.strokeStyle = p.color.toString()
-    context.moveTo(p.pastX, p.pastY)
-    context.lineTo(p.x, p.y)
+    context.moveTo(p.oldMidX, p.oldMidY)
+    // context.lineTo(p.x, p.y)
+    context.quadraticCurveTo(p.oldX, p.oldY, p.midX, p.midY)
     context.stroke()
 		context.closePath()
 
@@ -128,8 +135,8 @@ function Particle(x, y, color) {
   this.x = x || 0
   this.y = y || 0
   this.color = color || new HSLA()
-  this.pastX = this.x
-  this.pastY = this.y
+  this.oldX = this.x
+  this.oldY = this.y
 }
 
 document.onreadystatechange = async() => {
