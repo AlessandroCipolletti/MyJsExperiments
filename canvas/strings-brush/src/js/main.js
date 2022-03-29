@@ -16,10 +16,10 @@ const eventEndDelay = 3000
 
 
 const _draw = () => {
-	particles.forEach((particle) => {
-		particle.update(cursorX, cursorY)
-		drawParticleLine(particle)
-	})
+  particles.forEach((particle) => {
+    particle.update(cursorX, cursorY)
+    drawParticleLine(particle)
+  })
 }
 
 const draw = () => {
