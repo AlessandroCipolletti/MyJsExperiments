@@ -1,0 +1,27 @@
+{
+  "name": "path-finder",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "lint": "eslint -c .eslintrc.json src",
+    "lint:quiet": "eslint -c .eslintrc.json src --quiet",
+    "lint:fix": "eslint -c .eslintrc.json src --fix",
+    "build": "rm -rf ./build && parcel build src/index.html --public-url ./ --no-source-maps --out-dir ./build",
+    "start": "parcel src/index.html --https --out-dir ./build"
+  },
+  "browserslist": "> 0.25%, not dead",
+  "author": "Alessandro Cipolletti",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.17.8",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "babel-eslint": "^8.2.6",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "cssnano": "^4.1.10",
+    "eslint": "^4.19.1",
+    "parcel-bundler": "^1.12.5"
+  }
+}

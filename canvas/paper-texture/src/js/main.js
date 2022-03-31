@@ -1,4 +1,4 @@
-import { getRandomNumber, round } from './utils'
+import { getRandomNumber /*, round */ } from './utils'
 
 let canvas = null
 let context = null
@@ -22,22 +22,22 @@ const init = () => {
 
 const drawLine = (ctx, startY) => {
   let x = 0, y = startY
-  let oldX = x, oldY = y
-  let midX = x, midY = y
+  // let oldX = x, oldY = y
+  // let midX = x, midY = y
   ctx.strokeStyle = `rgba(0, 0, 0, ${getRandomNumber(0.01, 0.02, 4)})`
   // ctx.strokeStyle = `rgba(0, 0, 0, ${getRandomNumber(0.1, 0.5, 4)})`
   ctx.beginPath()
   ctx.lineWidth = 1
   ctx.moveTo(x, y)
-  while (midX < canvas.width) {
+  while (x < canvas.width) {
     x += xStep
     y += getRandomNumber(-fuzzAmount, fuzzAmount, 0)
-    midX = round((oldX + x) / 2, 1)
-    midY = round((oldY + y) / 2, 1)
-    ctx.quadraticCurveTo(oldX, oldY, midX, midY)
-    // ctx.lineTo(x, y)
-    oldX = x
-    oldY = y
+    // midX = round((oldX + x) / 2, 1)
+    // midY = round((oldY + y) / 2, 1)
+    // ctx.quadraticCurveTo(oldX, oldY, midX, midY)
+    ctx.lineTo(x, y)
+    // oldX = x
+    // oldY = y
   }
   ctx.stroke()
   ctx.closePath()
