@@ -2,10 +2,11 @@ import { getRandomNumber, getEventCoordX, getEventCoordY } from './utils'
 
 let canvas, context
 let tilesWidth, tilesHeight
-const tileSize = 16
+const tileSize = 30
 const mapData = []
-const wallColor = 'rgb(0,100,0)', bgColor = 'rgb(0,0,150)', cursorColor = 'rgb(200,0,0)'
+const bgColor = '#ccc', wallColor = '#333', emptyColor = 'white', cursorColor = 'red'
 const playerObj = {}
+const wallTilesPercentage = 25
 
 
 const init = () => {
@@ -17,29 +18,31 @@ const init = () => {
   canvas.height = tilesHeight * tileSize
   canvas.addEventListener(('ontouchstart' in window) ? 'touchstart' : 'mousedown', onClick)
 
+  // fill bg color
   context.fillStyle = bgColor
   context.fillRect(0, 0, canvas.width, canvas.height)
-  context.fillStyle = wallColor
+
   for (let x = 0; x < tilesWidth; x++) {
     mapData[x] = []
     for (let y = 0; y < tilesHeight; y++) {
-      if (Math.random() * 10 > 8) {
+      if (getRandomNumber(100) < wallTilesPercentage) {
         mapData[x][y] = { x, y, type : 1 }
+        fillTile(x, y, wallColor)
       } else {
         mapData[x][y] = { x, y, type : 0 }
-        context.fillRect(x * tileSize, y * tileSize, tileSize, tileSize)
+        fillTile(x, y, emptyColor)
       }
     }
   }
-  mapData[0][0].type = 0
-  context.fillStyle = bgColor
-  context.fillRect(0, 0, tileSize, tileSize)
 
+  playerObj.x = getRandomNumber(tilesWidth)
+  playerObj.y = getRandomNumber(tilesHeight)
+  fillTile(playerObj.x, playerObj.y, cursorColor)
+}
 
-  playerObj.x = getRandomNumber(0, tilesWidth, 0)
-  playerObj.y = getRandomNumber(0, tilesHeight, 0)
-  context.fillStyle = cursorColor
-  context.fillRect(playerObj.x * tileSize, playerObj.y * tileSize, tileSize, tileSize)
+const fillTile = (x, y, color) => {
+  context.fillStyle = color
+  context.fillRect(x * tileSize + 1, y * tileSize + 1, tileSize - 2, tileSize - 2)
 }
 
 const onClick = (e) => {
@@ -155,19 +158,17 @@ const movePlayer = (data, step) => {
   if (step >= data.length) {
     return false
   }
-  if (mapData[playerObj.x][playerObj.y].type == 0) {
-    context.fillStyle = wallColor
-  } else {
-    context.fillStyle = bgColor
+  if (mapData[playerObj.x][playerObj.y].type === 1) {
+    fillTile(playerObj.x, playerObj.y, wallColor)
+  // } else {
+  //   fillTile(playerObj.x, playerObj.y, emptyColor)
   }
-  context.fillRect(playerObj.x * tileSize, playerObj.y * tileSize, tileSize, tileSize)
   playerObj.x = data[step].x
   playerObj.y = data[step].y
-  context.fillStyle = cursorColor
-  context.fillRect(playerObj.x * tileSize, playerObj.y * tileSize, tileSize, tileSize)
-  setTimeout(() => {
+  fillTile(playerObj.x, playerObj.y, cursorColor)
+  requestAnimationFrame(() => {
     movePlayer(data, step)
-  }, 10)
+  })
 }
 
 document.onreadystatechange = async() => {
