@@ -1,4 +1,8 @@
-import { getRandomNumber, getEventCoordX, getEventCoordY } from './utils'
+import setDefaultDecimalDigits from 'js-math-and-ui-utils/mathUtils/setDefaultDecimalDigits'
+import getRandomNumber from 'js-math-and-ui-utils/mathUtils/getRandomNumber'
+import getEventCoordX from 'js-math-and-ui-utils/domUtils/getEventCoordX'
+import getEventCoordY from 'js-math-and-ui-utils/domUtils/getEventCoordY'
+
 
 let canvas, context
 let tilesWidth, tilesHeight
@@ -10,6 +14,7 @@ const wallTilesPercentage = 25
 
 
 const init = () => {
+  setDefaultDecimalDigits(0)
   canvas = document.querySelector('canvas')
   context = canvas.getContext('2d')
   tilesWidth = Math.trunc(window.innerWidth / tileSize)

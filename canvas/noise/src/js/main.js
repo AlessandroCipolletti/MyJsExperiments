@@ -1,6 +1,5 @@
 import SimplexNoise from './SimplexNoise'
 import Particle from './Particle'
-import { round } from './utils'
 
 
 const Configs = {

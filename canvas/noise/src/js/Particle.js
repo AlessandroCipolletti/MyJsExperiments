@@ -1,8 +1,8 @@
-import { round } from './utils'
+import roundNumber from 'js-math-and-ui-utils/mathUtils/roundNumber'
 
 
 class Particle {
-	constructor(screenWidth, screenHeight, centerX, centerY, hueBase) {
+  constructor(screenWidth, screenHeight, centerX, centerY, hueBase) {
     this.x = 0
     this.y = 0
     this.oldX = this.x
@@ -18,23 +18,23 @@ class Particle {
     this.colorString = ''
 
     this.reset(screenWidth, screenHeight, centerX, centerY, hueBase)
-	}
+  }
 
-	update(angle, step) {
+  update(angle, step) {
     this.oldX = this.x
     this.oldY = this.y
     this.oldMidX = this.midX
     this.oldMidY = this.midY
-    this.x = round(this.x + Math.cos(angle) * step, 2)
-    this.y = round(this.y + Math.sin(angle) * step, 2)
-    this.midX = round((this.oldX + this.x) / 2, 2)
-    this.midY = round((this.oldY + this.y) / 2, 2)
+    this.x = roundNumber(this.x + Math.cos(angle) * step, 2)
+    this.y = roundNumber(this.y + Math.sin(angle) * step, 2)
+    this.midX = roundNumber((this.oldX + this.x) / 2, 2)
+    this.midY = roundNumber((this.oldY + this.y) / 2, 2)
 
     if (this.colorA < 1) {
       this.colorA += 0.003
       this.updateColorString()
     }
-	}
+  }
 
   reset(screenWidth, screenHeight, centerX, centerY, hueBase) {
     this.x = screenWidth * Math.random()

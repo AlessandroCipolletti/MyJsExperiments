@@ -1,4 +1,6 @@
-import { getRandomNumber /*, round */ } from './utils'
+// import roundNumber from 'js-math-and-ui-utils/mathUtils/roundNumber'
+import getRandomNumber from 'js-math-and-ui-utils/mathUtils/getRandomNumber'
+
 
 let canvas = null
 let context = null
@@ -32,8 +34,8 @@ const drawLine = (ctx, startY) => {
   while (x < canvas.width) {
     x += xStep
     y += getRandomNumber(-fuzzAmount, fuzzAmount, 0)
-    // midX = round((oldX + x) / 2, 1)
-    // midY = round((oldY + y) / 2, 1)
+    // midX = roundNumber((oldX + x) / 2, 1)
+    // midY = roundNumber((oldY + y) / 2, 1)
     // ctx.quadraticCurveTo(oldX, oldY, midX, midY)
     ctx.lineTo(x, y)
     // oldX = x
